@@ -26,7 +26,6 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     if (storedToken) {
       verifyToken(storedToken).then((payload) => {
         if (payload?.user) {
-          // Update the argument passed to setUser to ensure the 'passwordHash' property is included
           setUser({ ...payload.user, passwordHash: 'yourValueHere' });
           setToken(storedToken);
         }
