@@ -17,12 +17,17 @@ export default function Register() {
     
     try {
       const passwordHash = await hashPassword(password);
+
+      console.log(`password hash for new user is ${passwordHash}`);
+
       const newUser = {
         id: Date.now().toString(),
         username,
         email: `${username}@example.com`,
         passwordHash,
       };
+
+      console.log(`newUser`, newUser);
 
       addUser(newUser);
       addSessionLog('registration', username, undefined, passwordHash);
@@ -50,6 +55,8 @@ export default function Register() {
                 onChange={(e) => setUsername(e.target.value)}
                 className="w-full px-3 py-2 bg-gray-700 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                 required
+                placeholder="Enter your username"
+                title="Username"
               />
             </div>
 
@@ -58,6 +65,7 @@ export default function Register() {
                 Password
               </label>
               <input
+                title="Password"
                 type="password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}

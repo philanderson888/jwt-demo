@@ -20,6 +20,7 @@ export default function SecurePage() {
     if (!user || !token) {
       router.push('/login');
     } else {
+      console.log(`user accessed secure page`, user.username);
       addSessionLog('accessed secure page', user.username);
     }
   }, [user, token, router]);

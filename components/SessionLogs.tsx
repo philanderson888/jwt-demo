@@ -19,6 +19,15 @@ export function SessionLogs() {
     };
   }, []);
 
+  console.log(`sessions`, sessions);
+
+  console.log(`session`);
+
+  sessions.map((session, index) => {
+    console.log(`session`, session);
+    console.log(`index`, index);
+  });
+
   return (
     <div className="mt-8">
       <h2 className="text-2xl font-bold mb-4">Session Logs</h2>

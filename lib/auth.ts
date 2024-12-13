@@ -20,17 +20,28 @@ export interface Session {
 // Function to hash password using SHA-256
 export async function hashPassword(password: string): Promise<string> {
   const msgBuffer = new TextEncoder().encode(password);
+  console.log(`hashing password using sha 256 algorithm`);
+  console.log(`password buffer`, msgBuffer);
   const hashBuffer = await crypto.subtle.digest('SHA-256', msgBuffer);
+  console.log(`hash buffer`, hashBuffer);
   const hashArray = Array.from(new Uint8Array(hashBuffer));
+  console.log(`hash array`, hashArray);
   return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
 }
 
 export async function createToken(user: User): Promise<string> {
   const { passwordHash, ...userWithoutPassword } = user;
-  return new SignJWT({ user: userWithoutPassword })
+
+  console.log(`signing token for user using jwt sha 256 hashing algorithm`);
+
+  const jsonWebToken = new SignJWT({ user: userWithoutPassword })
     .setProtectedHeader({ alg: 'HS256' })
     .setExpirationTime('1h')
     .sign(JWT_SECRET);
+  
+  console.log(`jsonWebToken created for user is `, jsonWebToken);
+
+  return jsonWebToken;
 }
 
 export async function verifyToken(token: string) {

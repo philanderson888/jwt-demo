@@ -23,6 +23,9 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
   useEffect(() => {
     const storedToken = localStorage.getItem('token');
+
+    console.log(`storedToken`, storedToken);
+
     if (storedToken) {
       verifyToken(storedToken).then((payload) => {
         if (payload?.user) {

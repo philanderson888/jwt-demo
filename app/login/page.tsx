@@ -20,9 +20,17 @@ export default function Login() {
     const passwordHash = await hashPassword(password);
     const user = users.find(u => u.username === username && u.passwordHash === passwordHash);
     
+    console.log(`user login attempted with user ${username}, password ${password}, and password hash ${passwordHash}`);
+
     if (user) {
       const token = await createToken(user);
+
+      console.log(`user ${username} logged in with token ${token}`);
+
       localStorage.setItem('token', token);
+
+      console.log(`token stored in local storage`);
+      
       setUser(user);
       setToken(token);
       addSessionLog('login', user.username, token, passwordHash);
